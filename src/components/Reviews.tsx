@@ -1,104 +1,124 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const reviews = [
   {
     name: "Jannath Ct",
     review: "Took one Nike AF a year back. Still at the same condition. Comfort and fit 🔥🔥🔥",
     rating: 5,
-    tag: "Verified Purchase",
+    tag: "Signature Selection",
   },
   {
     name: "nowords tillnow",
     review: "Loved their crocs collection instore. Got one for me as well (woman).",
     rating: 5,
-    tag: "Store Visit",
+    tag: "Boutique Visit",
   },
   {
     name: "JASNA P",
     review: "FIRST OF ALL THANKS FOR THE PRODUCT WITHOUT ANY DELAY IN ORDERS AND ANY SCRATCHES. EVERY ORDER IS SAFE AND COMFORTABLE FROM TOFT MEN'S.",
     rating: 5,
-    tag: "Home Delivery",
+    tag: "Elite Logistics",
   },
   {
     name: "Happy Customer",
     review: "Good quality and cheap in price, money worth. Nice collections and loved their service 👌🏻",
     rating: 5,
-    tag: "Service",
+    tag: "Excellence",
   },
 ];
 
 export default function Reviews() {
-  return (
-    <section className="py-24 bg-black relative" id="reviews">
-      <div className="container mx-auto px-6 md:px-20 lg:px-32 relative z-10">
-        <div className="flex flex-col items-center text-center mb-20">
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            className="flex items-center gap-2 mb-6"
-          >
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} className="w-5 h-5 fill-yellow-500 text-yellow-500" />
-            ))}
-            <span className="text-white font-bold ml-2">4.8 / 5.0</span>
-          </motion.div>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-bold text-white mb-6 font-syne"
-          >
-            Trusted by the <br /> Community.
-          </motion.h2>
-          <p className="text-white/50 max-w-lg mx-auto">
-            Real stories from our customers who found their perfect pair at Toft Men's.
-          </p>
-        </div>
+  const containerRef = useRef<HTMLDivElement>(null);
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {reviews.map((item, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.8 }}
-              className="glass-card p-12 rounded-[40px] relative overflow-hidden group"
-            >
-              <Quote className="absolute top-8 right-8 w-12 h-12 text-white/5 group-hover:text-yellow-500/10 transition-colors" />
-              <div className="flex items-center gap-1 mb-6">
-                {[...Array(item.rating)].map((_, i) => (
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const cards = containerRef.current.querySelectorAll(".review-card");
+    cards.forEach((card, i) => {
+      gsap.fromTo(card, 
+        { y: 80, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1.5,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top bottom-=50",
+            toggleActions: "play none none reverse"
+          },
+          delay: i * 0.2
+        }
+      );
+    });
+  }, []);
+
+  return (
+    <section className="py-32 bg-black relative border-t border-white/5" id="reviews">
+      <div className="container mx-auto px-6 md:px-20 lg:px-32 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-end mb-32">
+           <div className="lg:col-span-7">
+              <motion.h2
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-6xl md:text-8xl font-bold text-white leading-[0.85] font-syne tracking-tighter text-editorial"
+              >
+                THE <br />
+                <span className="text-yellow-500">VOICE.</span>
+              </motion.h2>
+           </div>
+           <div className="lg:col-span-5 text-right flex flex-col items-end">
+              <div className="flex items-center gap-1 mb-4">
+                {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-yellow-500 text-yellow-500" />
                 ))}
               </div>
-              <p className="text-xl md:text-2xl text-white/90 font-medium leading-relaxed mb-8 italic">
+              <p className="text-white/40 text-[10px] font-bold uppercase tracking-[0.4em]">
+                Authentic testimonials from our community.
+              </p>
+           </div>
+        </div>
+
+        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24">
+          {reviews.map((item, index) => (
+            <div
+              key={index}
+              className="review-card flex flex-col items-start group"
+            >
+              <Quote className="w-12 h-12 text-yellow-500/20 mb-8 group-hover:text-yellow-500 transition-colors duration-700" />
+              <p className="text-2xl md:text-3xl text-white font-medium leading-[1.2] tracking-tight mb-12 font-syne">
                 "{item.review}"
               </p>
-              <div className="flex justify-between items-center border-t border-white/10 pt-8">
+              <div className="mt-auto w-full border-t border-white/10 pt-8 flex justify-between items-center">
                 <div>
-                  <h4 className="text-white font-bold text-lg">{item.name}</h4>
-                  <span className="text-yellow-500 text-xs font-bold tracking-widest uppercase">
+                  <h4 className="text-white font-bold text-xl tracking-tighter">{item.name}</h4>
+                  <span className="text-yellow-500 text-[10px] font-bold tracking-[0.2em] uppercase">
                     {item.tag}
                   </span>
                 </div>
-                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
-                   <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+                <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center opacity-20 group-hover:opacity-100 transition-opacity">
+                   <div className="w-1.5 h-1.5 rounded-full bg-yellow-500"></div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
 
-      {/* Background Big Text */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none z-0 opacity-[0.02]">
-        <h2 className="text-[25vw] font-bold text-white leading-none whitespace-nowrap">
-          REVIEWS
-        </h2>
+      {/* Decorative Text */}
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden pointer-events-none opacity-[0.02] translate-y-1/2">
+         <h2 className="text-[30vw] font-black text-white leading-none whitespace-nowrap">
+            TESTIMONIALS
+         </h2>
       </div>
     </section>
   );
