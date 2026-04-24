@@ -79,18 +79,6 @@ export default function Hero() {
 
       {/* Main Content Area */}
       <div className="relative z-20 w-full px-6 md:px-20 lg:px-32">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.8 }}
-          className="mb-12 flex items-center gap-6"
-        >
-          <div className="w-12 h-px bg-yellow-500/50"></div>
-          <span className="text-white/40 font-bold tracking-[0.6em] uppercase text-[9px]">
-            Established 2024 · Premium Collection
-          </span>
-        </motion.div>
-
         <div className="overflow-hidden mb-12">
           <h1
             ref={titleRef}
@@ -120,29 +108,7 @@ export default function Hero() {
             </div>
             <div className="absolute -bottom-2 left-0 w-0 h-px bg-yellow-500 transition-all duration-500 group-hover:w-full"></div>
           </a>
-
-          <div className="flex flex-col gap-2">
-             <div className="flex -space-x-2">
-                {[1,2,3,4].map(i => (
-                  <div key={i} className="w-8 h-8 rounded-full border-2 border-black bg-neutral-900 overflow-hidden grayscale hover:grayscale-0 transition-all">
-                    <Image src={`https://i.pravatar.cc/100?img=${i+15}`} alt="Customer" width={32} height={32} />
-                  </div>
-                ))}
-             </div>
-             <p className="text-white/30 text-[9px] font-bold uppercase tracking-widest">
-               Joined by <span className="text-white/60">93+ connoisseurs</span>
-             </p>
-          </div>
         </motion.div>
-      </div>
-
-      {/* Side Marquee (Editorial) */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 h-full hidden lg:flex items-center pointer-events-none overflow-hidden">
-         <div className="rotate-90 origin-center whitespace-nowrap">
-            <span className="text-white/5 text-[10vh] font-black uppercase tracking-tighter">
-               IMPORTED COLLECTIONS · NIKE AF · CROCS · SIGNATURE · 
-            </span>
-         </div>
       </div>
     </section>
   );
