@@ -142,27 +142,6 @@ export default function Hero() {
         <div className="floating-element absolute bottom-1/4 left-1/4 w-48 h-48 glass-card rounded-full blur-3xl opacity-10 bg-white"></div>
       </div>
 
-      {/* Explore Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 cursor-pointer"
-        onClick={() =>
-          document
-            .getElementById("collections")
-            ?.scrollIntoView({ behavior: "smooth" })
-        }
-      >
-        <span className="text-white/30 text-[10px] font-bold uppercase tracking-[0.4em] rotate-180 [writing-mode:vertical-lr]">
-          Scroll
-        </span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="w-[1px] h-12 bg-gradient-to-b from-yellow-500 to-transparent"
-        ></motion.div>
-      </motion.div>
     </section>
   );
 }

@@ -25,14 +25,6 @@ export default function Contact() {
       <div className="container mx-auto px-6 md:px-20 lg:px-32 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
           <div>
-            <motion.span
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="text-yellow-500 font-bold tracking-[0.3em] uppercase text-xs mb-4 block"
-            >
-              Get In Touch
-            </motion.span>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}

@@ -41,14 +41,6 @@ export default function Features() {
     <section className="py-24 bg-black relative overflow-hidden">
       <div className="container mx-auto px-6 md:px-20 lg:px-32 relative z-10">
         <div className="flex flex-col items-start mb-16">
-          <motion.span
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="text-yellow-500 font-bold tracking-[0.3em] uppercase text-xs mb-4"
-          >
-            Why Choose Us
-          </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
