@@ -82,7 +82,7 @@ export default function Hero() {
         <div className="overflow-hidden mb-12">
           <h1
             ref={titleRef}
-            className="text-white text-[11vw] md:text-[9vw] lg:text-[8vw] font-bold leading-[0.85] tracking-tighter font-syne text-editorial"
+            className="text-white text-[14vw] sm:text-[12vw] md:text-[9vw] lg:text-[8vw] font-bold leading-[0.85] tracking-tighter font-syne text-editorial"
           >
             <span className="block overflow-hidden">UNCOMPROMISING</span>
             <span className="block overflow-hidden text-yellow-500">QUALITY.</span>
