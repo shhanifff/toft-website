@@ -67,11 +67,11 @@ export default function Hero() {
           className="mb-8 flex items-center gap-4"
         >
           <div className="relative w-16 h-16 opacity-80">
-            <Image 
-              src="/logo.png" 
-              alt="Logo" 
-              fill 
-              className="object-contain mix-blend-screen scale-150" 
+            <Image
+              src="/logo.jpg"
+              alt="Logo"
+              fill
+              className="object-contain mix-blend-screen scale-150"
             />
           </div>
           <span className="text-yellow-500 font-bold tracking-[0.5em] uppercase text-xs">
@@ -86,7 +86,7 @@ export default function Hero() {
             transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
             className="text-white text-[12vw] md:text-[8vw] lg:text-[7vw] font-bold leading-[0.95] tracking-tighter font-syne"
           >
-            UNCOMPROMISING <br /> 
+            UNCOMPROMISING <br />
             <span className="text-stroke">QUALITY.</span> IMPORTED.
           </motion.h1>
         </div>
@@ -97,12 +97,23 @@ export default function Hero() {
           transition={{ delay: 1.2, duration: 1 }}
           className="flex flex-wrap gap-8 items-center"
         >
-          <a href="#collections" className="group relative px-10 py-5 bg-yellow-500 rounded-full overflow-hidden transition-all duration-500 hover:pr-14 shadow-[0_20px_50px_rgba(234,179,8,0.2)]">
+          <a
+            href="#collections"
+            className="group relative px-10 py-5 bg-yellow-500 rounded-full overflow-hidden transition-all duration-500 hover:pr-14 shadow-[0_20px_50px_rgba(234,179,8,0.2)]"
+          >
             <span className="relative z-10 text-black font-black uppercase text-xs tracking-widest">
               Explore Collection
             </span>
             <div className="absolute right-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-x-4 group-hover:translate-x-0">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-black">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3"
+                className="text-black"
+              >
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
@@ -111,19 +122,23 @@ export default function Hero() {
 
           <div className="flex items-center gap-4">
             <div className="flex -space-x-3">
-              {[1,2,3].map(i => (
-                <div key={i} className="w-10 h-10 rounded-full border-2 border-black bg-neutral-800 overflow-hidden">
-                  <Image 
-                    src={`https://i.pravatar.cc/100?img=${i+10}`} 
-                    alt="Customer" 
-                    width={40} 
-                    height={40} 
+              {[1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className="w-10 h-10 rounded-full border-2 border-black bg-neutral-800 overflow-hidden"
+                >
+                  <Image
+                    src={`https://i.pravatar.cc/100?img=${i + 10}`}
+                    alt="Customer"
+                    width={40}
+                    height={40}
                   />
                 </div>
               ))}
             </div>
             <p className="text-white/50 text-[10px] font-bold uppercase tracking-widest">
-              4.8 Rating <br /> <span className="text-white">93+ Happy Clients</span>
+              4.8 Rating <br />{" "}
+              <span className="text-white">93+ Happy Clients</span>
             </p>
           </div>
         </motion.div>
@@ -136,12 +151,16 @@ export default function Hero() {
       </div>
 
       {/* Explore Indicator */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
         className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 cursor-pointer"
-        onClick={() => document.getElementById('collections')?.scrollIntoView({ behavior: 'smooth' })}
+        onClick={() =>
+          document
+            .getElementById("collections")
+            ?.scrollIntoView({ behavior: "smooth" })
+        }
       >
         <span className="text-white/30 text-[10px] font-bold uppercase tracking-[0.4em] rotate-180 [writing-mode:vertical-lr]">
           Scroll

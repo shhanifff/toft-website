@@ -19,13 +19,13 @@ export default function Navbar() {
     >
       <div className="max-w-[1400px] mx-auto flex items-center justify-between glass-card px-8 py-4 rounded-3xl border-white/10 shadow-2xl">
         <Link href="/" className="flex items-center gap-4 group">
-          <div className="relative w-12 h-12 flex items-center justify-center">
+          <div className="relative w-14 h-14 bg-black/40 rounded-2xl flex items-center justify-center border border-white/5 overflow-hidden group-hover:border-yellow-500/30 transition-colors duration-500">
             {!logoError ? (
-              <Image 
-                src="/logo.png" 
-                alt="Toft Logo" 
-                fill 
-                className="object-contain mix-blend-screen scale-150 transition-transform duration-500 group-hover:scale-175"
+              <Image
+                src="/logo.jpg"
+                alt="Toft Logo"
+                fill
+                className="object-contain mix-blend-screen scale-125 transition-transform duration-700 group-hover:scale-150"
                 priority
                 onError={() => setLogoError(true)}
               />
@@ -36,12 +36,14 @@ export default function Navbar() {
             )}
           </div>
           <div className="flex flex-col">
-            <span className="text-white font-black text-xl tracking-tighter font-syne leading-none">
-              TOFT <span className="text-yellow-500">MEN'S</span>
+            <span className="text-white font-black text-2xl tracking-tighter font-syne leading-tight group-hover:text-yellow-500 transition-colors">
+              TOFT <span className="text-yellow-500 group-hover:text-white transition-colors">MEN'S</span>
             </span>
-            <div className="flex items-center gap-1.5 mt-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-              <span className="text-[8px] font-bold text-white/40 uppercase tracking-widest">Store Open</span>
+            <div className="flex items-center gap-2 mt-0.5">
+              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]"></span>
+              <span className="text-[9px] font-bold text-white/50 uppercase tracking-[0.2em]">
+                Store Open
+              </span>
             </div>
           </div>
         </Link>
