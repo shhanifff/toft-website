@@ -1,169 +1,149 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useEffect } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const collections = [
+gsap.registerPlugin(ScrollTrigger);
+
+const products = [
   {
-    title: "Nike AF Series",
-    category: "Premium Imported",
+    id: 1,
+    name: "Air Force 1 '07",
+    category: "Classic Series",
+    price: "₹9,495",
+    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1000&auto=format&fit=crop",
+    color: "bg-zinc-900"
+  },
+  {
+    id: 2,
+    name: "Dunk Low Retro",
+    category: "Street Heritage",
+    price: "₹8,295",
+    image: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?q=80&w=1000&auto=format&fit=crop",
+    color: "bg-stone-900"
+  },
+  {
+    id: 3,
+    name: "Classic Crocs",
+    category: "Lifestyle Comfort",
+    price: "₹3,995",
     image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=1000&auto=format&fit=crop",
-    price: "From ₹2,499",
+    color: "bg-neutral-900"
   },
   {
-    title: "Signature Crocs",
-    category: "Comfort Collection",
-    image: "https://images.unsplash.com/photo-1623126435942-8800989f074d?q=80&w=1000&auto=format&fit=crop",
-    price: "From ₹1,299",
-  },
-  {
-    title: "Imported Formal",
-    category: "Elegance Redefined",
-    image: "https://images.unsplash.com/photo-1614252335198-d636412e2496?q=80&w=1000&auto=format&fit=crop",
-    price: "From ₹3,999",
-  },
-  {
-    title: "Urban Sneakers",
-    category: "Street Ready",
-    image: "https://images.unsplash.com/photo-1552346154-21d32810aba3?q=80&w=1000&auto=format&fit=crop",
-    price: "From ₹2,999",
-  },
+    id: 4,
+    name: "Jordan 1 High",
+    category: "Basketball Legend",
+    price: "₹14,995",
+    image: "https://images.unsplash.com/photo-1584735175315-9d5df23860e6?q=80&w=1000&auto=format&fit=crop",
+    color: "bg-zinc-900"
+  }
 ];
 
 export default function Collections() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
 
-  const x1 = useTransform(scrollYProgress, [0, 1], [0, -200]);
-  const x2 = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  useEffect(() => {
+    if (!gridRef.current) return;
+
+    const cards = gridRef.current.querySelectorAll(".product-card");
+    
+    cards.forEach((card, i) => {
+      gsap.fromTo(card, 
+        { y: 100, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top bottom-=100",
+            toggleActions: "play none none reverse"
+          },
+          delay: i * 0.1
+        }
+      );
+    });
+  }, []);
 
   return (
-    <section ref={containerRef} className="py-24 bg-black overflow-hidden" id="collections">
-      <div className="container mx-auto px-6 md:px-20 lg:px-32 mb-20">
-        <div className="flex flex-col md:flex-row justify-between items-end gap-8">
-          <div>
+    <section id="collections" ref={sectionRef} className="py-32 bg-black overflow-hidden">
+      <div className="container mx-auto px-6 md:px-20 lg:px-32 mb-24">
+        <div className="flex flex-col md:flex-row justify-between items-end gap-12">
+          <div className="max-w-2xl">
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-white font-syne"
+              className="text-white text-6xl md:text-8xl font-bold font-syne tracking-tighter leading-[0.85] text-editorial"
             >
-              Curated for <br /> Excellence.
+              CURATED <br />
+              <span className="text-yellow-500">EXCELLENCE.</span>
             </motion.h2>
           </div>
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="max-w-xs"
+            className="flex flex-col items-end gap-4"
           >
-            <p className="text-white/50 text-sm leading-relaxed mb-6">
-              Our signature series combines global aesthetics with unbeatable value. 
-              From the iconic AF series to the latest Crocs collection.
+            <p className="text-white/40 text-[10px] font-bold uppercase tracking-[0.4em] text-right max-w-[200px]">
+              Selection of the world's most sought after silhouettes.
             </p>
-            <div className="w-12 h-px bg-yellow-500"></div>
+            <div className="w-24 h-px bg-yellow-500/30"></div>
           </motion.div>
         </div>
       </div>
 
-      {/* Horizontal Scrolling Rows */}
-      <div className="flex flex-col gap-8 md:gap-16">
-        <motion.div style={{ x: x1 }} className="flex gap-8 px-6">
-          {collections.map((item, i) => (
-            <div
-              key={i}
-              className="min-w-[300px] md:min-w-[450px] aspect-[4/5] relative rounded-3xl overflow-hidden group cursor-pointer"
-            >
+      <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/5 border-y border-white/5">
+        {products.map((product) => (
+          <div 
+            key={product.id} 
+            className="product-card group relative bg-black aspect-[3/4] overflow-hidden border-r border-white/5 last:border-r-0"
+          >
+            {/* Image Container */}
+            <div className="absolute inset-0 transition-transform duration-1000 ease-out group-hover:scale-110">
               <Image
-                src={item.image}
-                alt={item.title}
+                src={product.image}
+                alt={product.name}
                 fill
-                className="object-cover grayscale hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
+                className="object-cover brightness-75 group-hover:brightness-100 transition-all duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity"></div>
-              <div className="absolute bottom-8 left-8">
-                <p className="text-yellow-500 text-[10px] font-bold uppercase tracking-widest mb-1">
-                  {item.category}
-                </p>
-                <h3 className="text-white text-2xl font-bold mb-2">{item.title}</h3>
-                <p className="text-white/70 text-sm font-medium">{item.price}</p>
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
             </div>
-          ))}
-          {/* Repeat for continuous feel */}
-          {collections.map((item, i) => (
-            <div
-              key={`repeat-${i}`}
-              className="min-w-[300px] md:min-w-[450px] aspect-[4/5] relative rounded-3xl overflow-hidden group cursor-pointer"
-            >
-              <Image
-                src={item.image}
-                alt={item.title}
-                fill
-                className="object-cover grayscale hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity"></div>
-              <div className="absolute bottom-8 left-8">
-                <p className="text-yellow-500 text-[10px] font-bold uppercase tracking-widest mb-1">
-                  {item.category}
-                </p>
-                <h3 className="text-white text-2xl font-bold mb-2">{item.title}</h3>
-                <p className="text-white/70 text-sm font-medium">{item.price}</p>
-              </div>
-            </div>
-          ))}
-        </motion.div>
 
-        {/* Second row scrolling in opposite direction */}
-        <motion.div style={{ x: x2 }} className="flex gap-8 px-6">
-          {[...collections].reverse().map((item, i) => (
-            <div
-              key={`rev-${i}`}
-              className="min-w-[300px] md:min-w-[450px] aspect-[4/5] relative rounded-3xl overflow-hidden group cursor-pointer"
-            >
-              <Image
-                src={item.image}
-                alt={item.title}
-                fill
-                className="object-cover grayscale hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity"></div>
-              <div className="absolute bottom-8 left-8">
-                <p className="text-yellow-500 text-[10px] font-bold uppercase tracking-widest mb-1">
-                  {item.category}
-                </p>
-                <h3 className="text-white text-2xl font-bold mb-2">{item.title}</h3>
-                <p className="text-white/70 text-sm font-medium">{item.price}</p>
+            {/* Content Overlay */}
+            <div className="absolute inset-0 p-8 flex flex-col justify-between z-20">
+              <div className="flex justify-between items-start translate-y-[-20px] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700">
+                <span className="text-white/40 text-[9px] font-bold uppercase tracking-[0.3em]">{product.category}</span>
+                <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-white text-2xl font-bold tracking-tighter mb-2 group-hover:text-yellow-500 transition-colors duration-500">
+                  {product.name}
+                </h3>
+                <div className="flex items-center gap-4 overflow-hidden">
+                   <span className="text-yellow-500 font-bold text-sm tracking-widest">{product.price}</span>
+                   <div className="w-0 group-hover:w-12 h-px bg-white/20 transition-all duration-700"></div>
+                   <span className="text-[9px] text-white/30 font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-700">Available</span>
+                </div>
               </div>
             </div>
-          ))}
-          {[...collections].reverse().map((item, i) => (
-            <div
-              key={`rev-repeat-${i}`}
-              className="min-w-[300px] md:min-w-[450px] aspect-[4/5] relative rounded-3xl overflow-hidden group cursor-pointer"
-            >
-              <Image
-                src={item.image}
-                alt={item.title}
-                fill
-                className="object-cover grayscale hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity"></div>
-              <div className="absolute bottom-8 left-8">
-                <p className="text-yellow-500 text-[10px] font-bold uppercase tracking-widest mb-1">
-                  {item.category}
-                </p>
-                <h3 className="text-white text-2xl font-bold mb-2">{item.title}</h3>
-                <p className="text-white/70 text-sm font-medium">{item.price}</p>
-              </div>
-            </div>
-          ))}
-        </motion.div>
+
+            {/* Hover Reveal Block */}
+            <div className="absolute inset-0 bg-yellow-500 translate-y-full group-hover:translate-y-[98%] transition-transform duration-700 ease-in-out z-30"></div>
+          </div>
+        ))}
       </div>
     </section>
   );
