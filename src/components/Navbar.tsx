@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ShoppingBag, Search, Menu } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Navbar() {
   return (
@@ -13,9 +14,15 @@ export default function Navbar() {
       className="fixed top-0 left-0 w-full z-[100] px-6 md:px-12 py-6"
     >
       <div className="max-w-[1400px] mx-auto flex items-center justify-between glass-card px-8 py-4 rounded-3xl border-white/5">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="w-10 h-10 bg-yellow-500 rounded-xl flex items-center justify-center">
-            <span className="text-black font-black text-xl">T</span>
+        <Link href="/" className="flex items-center gap-3">
+          <div className="relative w-12 h-12 overflow-hidden">
+            <Image 
+              src="/logo.png" 
+              alt="Toft Logo" 
+              fill 
+              className="object-contain mix-blend-screen scale-150"
+              priority
+            />
           </div>
           <span className="text-white font-black text-xl tracking-tighter font-syne">
             TOFT <span className="text-yellow-500">MEN'S</span>

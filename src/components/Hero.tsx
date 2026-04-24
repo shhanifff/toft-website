@@ -64,8 +64,16 @@ export default function Hero() {
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1.2, delay: 0.5 }}
-          className="mb-8"
+          className="mb-8 flex items-center gap-4"
         >
+          <div className="relative w-16 h-16 opacity-80">
+            <Image 
+              src="/logo.png" 
+              alt="Logo" 
+              fill 
+              className="object-contain mix-blend-screen scale-150" 
+            />
+          </div>
           <span className="text-yellow-500 font-bold tracking-[0.5em] uppercase text-xs">
             Imported Shoe Store · Edavannappara
           </span>
