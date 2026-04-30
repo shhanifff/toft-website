@@ -63,14 +63,14 @@ export default function Features() {
 
   return (
     <section className="py-32 bg-black relative overflow-hidden border-t border-white/5">
-      <div className="container mx-auto px-6 md:px-20 lg:px-32 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-start mb-32">
-          <div className="lg:col-span-8">
+      <div className="container mx-auto px-4 sm:px-6 md:px-20 lg:px-32 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-20 items-start mb-20 md:mb-32">
+          <div className="lg:col-span-8 w-full overflow-hidden">
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-6xl md:text-8xl font-bold text-white leading-[0.85] font-syne tracking-tighter text-editorial"
+              className="text-[13vw] sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[0.85] font-syne tracking-tighter text-editorial break-words"
             >
               CRAFTING THE <br />
               <span className="text-yellow-500">STANDARD.</span>

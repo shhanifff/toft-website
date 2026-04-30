@@ -78,37 +78,17 @@ export default function Hero() {
       </div>
 
       {/* Main Content Area */}
-      <div className="relative z-20 w-full px-6 md:px-20 lg:px-32">
-        <div className="overflow-hidden mb-12">
+      <div className="relative z-20 w-full px-4 sm:px-6 md:px-20 lg:px-32">
+        <div className="overflow-hidden">
           <h1
             ref={titleRef}
-            className="text-white text-[14vw] sm:text-[12vw] md:text-[9vw] lg:text-[8vw] font-bold leading-[0.85] tracking-tighter font-syne text-editorial"
+            className="text-white text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7vw] xl:text-[6.5vw] font-bold leading-[0.9] tracking-tighter font-syne text-editorial"
           >
-            <span className="block overflow-hidden">UNCOMPROMISING</span>
-            <span className="block overflow-hidden text-yellow-500">QUALITY.</span>
-            <span className="block overflow-hidden">IMPORTED.</span>
+            <span className="block overflow-hidden whitespace-nowrap">UNCOMPROMISING</span>
+            <span className="block overflow-hidden text-yellow-500 whitespace-nowrap">QUALITY.</span>
+            <span className="block overflow-hidden whitespace-nowrap">IMPORTED.</span>
           </h1>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="flex flex-wrap gap-12 items-end"
-        >
-          <a href="#collections" className="group relative">
-            <div className="flex items-center gap-4 text-white hover:text-yellow-500 transition-colors duration-500">
-               <span className="font-black uppercase text-xs tracking-widest">Explore Series</span>
-               <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all duration-500">
-                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                 </svg>
-               </div>
-            </div>
-            <div className="absolute -bottom-2 left-0 w-0 h-px bg-yellow-500 transition-all duration-500 group-hover:w-full"></div>
-          </a>
-        </motion.div>
       </div>
     </section>
   );

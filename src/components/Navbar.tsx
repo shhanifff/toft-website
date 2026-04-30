@@ -1,11 +1,10 @@
 "use client";
 
-import { motion, useScroll } from "framer-motion";
-import { Search, Menu, X } from "lucide-react";
+import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
+import { Search, Menu, X, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 export default function Navbar() {
   const [logoError, setLogoError] = useState(false);
@@ -13,140 +12,151 @@ export default function Navbar() {
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
 
-  useEffect(() => {
-    // Using a more modern approach for scroll tracking
-    const updateScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    
-    window.addEventListener("scroll", updateScroll);
-    return () => window.removeEventListener("scroll", updateScroll);
-  }, []);
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setIsScrolled(latest > 50);
+  });
 
   return (
     <>
       <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-700 px-6 md:px-12 ${
-          isScrolled ? "py-4" : "py-8"
-        }`}
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        className="fixed top-0 left-0 w-full z-[100] px-4 md:px-8 py-4 flex justify-center pointer-events-none"
       >
-        <div className={`max-w-[1400px] mx-auto flex items-center justify-between transition-all duration-700 rounded-[2rem] px-8 py-4 ${
-          isScrolled ? "glass-card border-white/10 shadow-2xl" : "bg-transparent border-transparent"
+        <div className={`w-full max-w-[1200px] flex items-center justify-between transition-all duration-500 rounded-full px-6 py-3 pointer-events-auto ${
+          isScrolled ? "bg-black/60 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]" : "bg-transparent border-transparent"
         }`}>
-          <Link href="/" className="flex items-center gap-5 group">
-            <div className="relative w-14 h-14 bg-black/40 rounded-2xl flex items-center justify-center border border-white/5 overflow-hidden group-hover:border-yellow-500/30 transition-all duration-700">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-3 group relative z-10">
+            <div className="relative w-10 h-10 md:w-12 md:h-12 bg-white/5 rounded-full flex items-center justify-center overflow-hidden border border-white/10 group-hover:border-yellow-500/50 transition-colors duration-500">
               {!logoError ? (
                 <Image
                   src="/logo.jpg"
                   alt="Toft Logo"
                   fill
-                  className="object-contain mix-blend-screen scale-125 transition-transform duration-1000 group-hover:scale-150"
+                  className="object-cover scale-110 group-hover:scale-125 transition-transform duration-700"
                   priority
                   onError={() => setLogoError(true)}
                 />
               ) : (
-                <div className="w-10 h-10 bg-yellow-500 rounded-xl flex items-center justify-center font-black text-black">
-                  T
-                </div>
+                <span className="font-bold text-yellow-500 text-lg md:text-xl">T</span>
               )}
             </div>
             <div className="flex flex-col">
-              <span className="text-white font-black text-2xl tracking-tighter font-syne leading-tight group-hover:text-yellow-500 transition-colors">
-                TOFT <span className="text-yellow-500 group-hover:text-white transition-colors">MEN'S</span>
+              <span className="text-white font-black text-lg md:text-xl tracking-tight font-syne uppercase leading-none">
+                Toft
               </span>
-              <div className="flex items-center gap-2 mt-0.5">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.8)]"></span>
-                <span className="text-[9px] font-bold text-white/40 uppercase tracking-[0.3em]">
-                  Live Status · Open
-                </span>
-              </div>
+              <span className="text-yellow-500 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] leading-none mt-1">
+                Men's
+              </span>
             </div>
           </Link>
 
-          <div className="hidden lg:flex items-center gap-12">
-            {["Collections", "Features", "Reviews", "Contact"].map((item) => (
+          {/* Desktop Nav */}
+          <div className="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+            {["Collections", "Features", "Reviews", "Journal"].map((item) => (
               <Link
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="relative text-white/40 text-[10px] font-bold uppercase tracking-[0.4em] hover:text-white transition-colors group"
+                className="relative text-white/60 text-xs font-semibold uppercase tracking-widest hover:text-white transition-colors py-2 group"
               >
                 {item}
-                <span className="absolute -bottom-2 left-0 w-0 h-[1px] bg-yellow-500 transition-all duration-700 group-hover:w-full"></span>
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-yellow-500 rounded-full transition-all duration-300 group-hover:w-full opacity-0 group-hover:opacity-100"></span>
               </Link>
             ))}
           </div>
 
-          <div className="flex items-center gap-8">
-            <button className="text-white/30 hover:text-white transition-all duration-500 p-2 hover:bg-white/5 rounded-full">
-              <Search className="w-5 h-5" />
+          {/* Actions */}
+          <div className="flex items-center gap-4 z-10">
+            <button className="text-white/70 hover:text-white transition-colors duration-300">
+              <Search className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />
             </button>
-            <div className="h-8 w-[1px] bg-white/10 hidden md:block"></div>
+            <button className="text-white/70 hover:text-white transition-colors duration-300">
+              <ShoppingBag className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />
+            </button>
+            <div className="w-[1px] h-6 bg-white/20 hidden md:block mx-2"></div>
             <button 
               onClick={() => setIsMenuOpen(true)}
-              className="flex items-center gap-4 group bg-white/5 hover:bg-white px-6 py-3 rounded-full transition-all duration-700 border border-white/5"
+              className="group flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-white text-black hover:bg-yellow-500 transition-colors duration-300"
             >
-              <span className="hidden md:block text-white group-hover:text-black font-bold text-[10px] uppercase tracking-[0.4em]">
-                Menu
-              </span>
-              <Menu className="w-5 h-5 text-white group-hover:text-black" />
+              <Menu className="w-5 h-5 md:w-6 md:h-6" strokeWidth={2} />
             </button>
           </div>
         </div>
       </motion.nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Modern Overlay Menu */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[200] bg-black/95 backdrop-blur-2xl p-12 flex flex-col justify-between"
+            initial={{ opacity: 0, clipPath: "circle(0% at top right)" }}
+            animate={{ opacity: 1, clipPath: "circle(150% at top right)" }}
+            exit={{ opacity: 0, clipPath: "circle(0% at top right)" }}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+            className="fixed inset-0 z-[200] bg-zinc-950 flex flex-col justify-between"
           >
-            <div className="flex justify-between items-center">
-              <span className="text-white font-black text-2xl tracking-tighter font-syne">
-                TOFT <span className="text-yellow-500">MEN'S</span>
-              </span>
+            {/* Overlay Header */}
+            <div className="px-6 md:px-12 py-8 flex justify-between items-center w-full max-w-[1400px] mx-auto">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center">
+                  <span className="font-bold text-black text-lg">T</span>
+                </div>
+                <span className="text-white font-black text-xl tracking-tight font-syne uppercase">Toft</span>
+              </div>
               <button 
                 onClick={() => setIsMenuOpen(false)}
-                className="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center text-white"
+                className="group flex items-center justify-center w-12 h-12 rounded-full border border-white/20 hover:border-yellow-500 hover:bg-yellow-500 transition-colors duration-300"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5 text-white group-hover:text-black transition-colors" />
               </button>
             </div>
 
-            <div className="flex flex-col gap-8">
-              {["Collections", "Features", "Reviews", "Contact"].map((item, i) => (
-                <motion.div
-                  key={item}
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: i * 0.1 }}
-                >
-                  <Link
-                    href={`#${item.toLowerCase()}`}
-                    onClick={() => setIsMenuOpen(false)}
-                    className="text-white text-5xl md:text-7xl font-bold tracking-tighter hover:text-yellow-500 transition-colors font-syne"
+            {/* Menu Links */}
+            <div className="flex-1 flex items-center px-6 md:px-12 w-full max-w-[1400px] mx-auto">
+              <div className="flex flex-col gap-6 md:gap-10">
+                {["Home", "Collections", "New Arrivals", "About Brand", "Contact"].map((item, i) => (
+                  <motion.div
+                    key={item}
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.2 + i * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="overflow-hidden"
                   >
-                    {item}
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="flex flex-col gap-4">
-              <p className="text-white/40 text-xs font-bold uppercase tracking-[0.4em]">Follow Us</p>
-              <div className="flex gap-8">
-                {["Instagram", "WhatsApp", "Facebook"].map((social) => (
-                  <span key={social} className="text-white font-bold text-xs uppercase tracking-widest cursor-pointer hover:text-yellow-500 transition-colors">
-                    {social}
-                  </span>
+                    <Link
+                      href={item === "Home" ? "/" : `#${item.toLowerCase().replace(" ", "-")}`}
+                      onClick={() => setIsMenuOpen(false)}
+                      className="text-white/60 hover:text-white text-4xl md:text-7xl font-bold tracking-tighter transition-colors font-syne flex items-center gap-4 group"
+                    >
+                      <span className="text-sm md:text-lg font-medium text-white/20 group-hover:text-yellow-500 transition-colors font-sans w-8 md:w-12">
+                        0{i + 1}
+                      </span>
+                      {item}
+                    </Link>
+                  </motion.div>
                 ))}
               </div>
             </div>
+
+            {/* Footer */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+              className="px-6 md:px-12 py-8 w-full max-w-[1400px] mx-auto border-t border-white/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6"
+            >
+              <div className="flex flex-col gap-2">
+                <span className="text-white/40 text-xs uppercase tracking-widest font-semibold">Get in touch</span>
+                <a href="mailto:hello@toftmens.com" className="text-white text-lg hover:text-yellow-500 transition-colors">hello@toftmens.com</a>
+              </div>
+              <div className="flex gap-8">
+                {["Instagram", "Twitter", "Facebook"].map((social) => (
+                  <a key={social} href="#" className="text-white/60 hover:text-white text-sm uppercase tracking-widest font-medium transition-colors">
+                    {social}
+                  </a>
+                ))}
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

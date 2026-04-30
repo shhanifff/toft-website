@@ -21,15 +21,15 @@ const InstagramIcon = ({ className }: { className?: string }) => (
 
 export default function Contact() {
   return (
-    <section className="py-24 bg-black relative border-t border-white/5" id="contact">
-      <div className="container mx-auto px-6 md:px-20 lg:px-32 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+    <section className="py-16 md:py-24 bg-black relative border-t border-white/5 overflow-hidden" id="contact">
+      <div className="container mx-auto px-4 sm:px-6 md:px-20 lg:px-32 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20">
           <div>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-4xl md:text-6xl font-bold text-white mb-12 font-syne"
+              className="text-[12vw] sm:text-5xl md:text-6xl font-bold text-white mb-8 md:mb-12 font-syne leading-tight break-words"
             >
               Visit Our <br /> Experience Store.
             </motion.h2>
@@ -80,7 +80,7 @@ export default function Contact() {
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="glass-card p-12 rounded-[40px] h-full flex flex-col justify-between"
+              className="glass-card p-6 sm:p-8 md:p-12 rounded-[2rem] md:rounded-[40px] h-full flex flex-col justify-between w-full"
             >
               <div>
                 <h3 className="text-2xl font-bold text-white mb-6">Stay Updated</h3>
