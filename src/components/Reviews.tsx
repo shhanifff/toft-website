@@ -62,27 +62,27 @@ export default function Reviews() {
   }, []);
 
   return (
-    <section className="py-32 bg-black relative border-t border-white/5" id="reviews">
-      <div className="container mx-auto px-6 md:px-20 lg:px-32 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-end mb-32">
+    <section className="py-20 md:py-32 bg-black relative border-t border-white/5 overflow-hidden" id="reviews">
+      <div className="container mx-auto px-4 sm:px-6 md:px-20 lg:px-32 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-20 items-start lg:items-end mb-16 md:mb-32">
            <div className="lg:col-span-7">
               <motion.h2
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-6xl md:text-8xl font-bold text-white leading-[0.85] font-syne tracking-tighter text-editorial"
+                className="text-[14vw] sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[0.85] font-syne tracking-tighter text-editorial break-words"
               >
                 THE <br />
                 <span className="text-yellow-500">VOICE.</span>
               </motion.h2>
            </div>
-           <div className="lg:col-span-5 text-right flex flex-col items-end">
+           <div className="lg:col-span-5 text-left lg:text-right flex flex-col items-start lg:items-end">
               <div className="flex items-center gap-1 mb-4">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-yellow-500 text-yellow-500" />
                 ))}
               </div>
-              <p className="text-white/40 text-[10px] font-bold uppercase tracking-[0.4em]">
+              <p className="text-white/40 text-[10px] font-bold uppercase tracking-[0.4em] max-w-[200px] lg:max-w-none">
                 Authentic testimonials from our community.
               </p>
            </div>
@@ -94,8 +94,8 @@ export default function Reviews() {
               key={index}
               className="review-card flex flex-col items-start group"
             >
-              <Quote className="w-12 h-12 text-yellow-500/20 mb-8 group-hover:text-yellow-500 transition-colors duration-700" />
-              <p className="text-2xl md:text-3xl text-white font-medium leading-[1.2] tracking-tight mb-12 font-syne">
+              <Quote className="w-8 h-8 md:w-12 md:h-12 text-yellow-500/20 mb-6 md:mb-8 group-hover:text-yellow-500 transition-colors duration-700" />
+              <p className="text-xl sm:text-2xl md:text-3xl text-white font-medium leading-[1.3] md:leading-[1.2] tracking-tight mb-8 md:mb-12 font-syne">
                 "{item.review}"
               </p>
               <div className="mt-auto w-full border-t border-white/10 pt-8 flex justify-between items-center">

@@ -12,10 +12,10 @@ export default function Footer() {
       {/* Accent glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[1px] bg-gradient-to-r from-transparent via-yellow-500/50 to-transparent"></div>
 
-      <div className="container mx-auto px-6 md:px-20 lg:px-32 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-20 mb-20">
+      <div className="container mx-auto px-4 sm:px-6 md:px-20 lg:px-32 relative z-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-20 mb-16 md:mb-20">
           {/* Brand Column */}
-          <div className="lg:col-span-2 flex flex-col items-start">
+          <div className="col-span-2 flex flex-col items-start">
             <Link href="/" className="flex items-center gap-4 mb-8 group">
               <div className="relative w-12 h-12 bg-white/5 rounded-full flex items-center justify-center overflow-hidden border border-white/10 group-hover:border-yellow-500/50 transition-colors duration-500">
                 <Image
@@ -79,6 +79,16 @@ export default function Footer() {
             </ul>
             <a
               href="mailto:hello@toftmens.com"
+              className="hidden lg:block text-yellow-500 hover:text-white transition-colors text-sm font-medium"
+            >
+              hello@toftmens.com
+            </a>
+          </div>
+
+          {/* Email Full Width Center on Mobile */}
+          <div className="col-span-2 flex justify-center lg:hidden mt-4">
+            <a
+              href="mailto:hello@toftmens.com"
               className="text-yellow-500 hover:text-white transition-colors text-sm font-medium"
             >
               hello@toftmens.com
@@ -87,7 +97,7 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-6 border-t border-white/5">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-6 border-t border-white/5 pb-8 md:pb-0">
           <p className="text-white/30 text-[10px] font-bold uppercase tracking-[0.2em] text-center md:text-left">
             © {currentYear} TOFT MEN'S · EDAVANNAPPARA. ALL RIGHTS RESERVED.
           </p>
